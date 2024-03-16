@@ -10,8 +10,6 @@ services:
   server:
     image: adguard/adguardhome:v0.107.45
     restart: on-failure
-    networks:
-      - dns
     ports:
       # plain DNS
       - 53:53/tcp
@@ -44,12 +42,7 @@ services:
     image: "mvance/unbound:latest"
     expose:
       - "5335"
-    networks:
-      - dns
     ports:
       - "5335:53/tcp"
       - "5335:53/udp"
     restart: unless-stopped
-
-networks:
-  dns:
