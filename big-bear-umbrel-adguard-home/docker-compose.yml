@@ -10,6 +10,8 @@ services:
   server:
     image: adguard/adguardhome:v0.107.45
     restart: on-failure
+    networks:
+      - dns
     ports:
       # plain DNS
       - 53:53/tcp
@@ -36,3 +38,18 @@ services:
     volumes:
       - ${APP_DATA_DIR}/data/adguardhome/work:/opt/adguardhome/work
       - ${APP_DATA_DIR}/data/adguardhome/conf:/opt/adguardhome/conf
+
+  unbound:
+    container_name: unbound
+    image: "mvance/unbound:latest"
+    expose:
+      - "5335"
+    networks:
+      - dns
+    ports:
+      - "5335:53/tcp"
+      - "5335:53/udp"
+    volumes:
+      - ${APP_DATA_DIR}/data/unbound/my_conf/forward-records.conf:/opt/unbound/etc/unbound/forward-records.conf
+      - ${APP_DATA_DIR}/data/unbound/my_conf/a-records.conf:/opt/unbound/etc/unbound/a-records.conf
+    restart: unless-stopped
