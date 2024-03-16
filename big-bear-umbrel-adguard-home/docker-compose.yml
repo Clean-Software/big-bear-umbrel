@@ -53,3 +53,6 @@ services:
       - ${APP_DATA_DIR}/data/unbound/my_conf/forward-records.conf:/opt/unbound/etc/unbound/forward-records.conf
       - ${APP_DATA_DIR}/data/unbound/my_conf/a-records.conf:/opt/unbound/etc/unbound/a-records.conf
     restart: unless-stopped
+
+networks:
+  dns:
