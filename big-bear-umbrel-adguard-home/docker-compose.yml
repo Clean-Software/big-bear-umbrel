@@ -49,9 +49,6 @@ services:
     ports:
       - "5335:53/tcp"
       - "5335:53/udp"
-    volumes:
-      - ${APP_DATA_DIR}/data/unbound/my_conf/forward-records.conf:/opt/unbound/etc/unbound/forward-records.conf
-      - ${APP_DATA_DIR}/data/unbound/my_conf/a-records.conf:/opt/unbound/etc/unbound/a-records.conf
     restart: unless-stopped
 
 networks:
