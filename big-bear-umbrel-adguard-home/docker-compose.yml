@@ -2,8 +2,6 @@ version: "3.7"
 
 services:
   app_proxy:
-    networks:
-      - dns
     environment:
       APP_HOST: big-bear-umbrel-adguard-home_server_1
       APP_PORT: 80
@@ -12,8 +10,6 @@ services:
   server:
     image: adguard/adguardhome:v0.107.45
     restart: on-failure
-    networks:
-      - dns
     ports:
       # plain DNS
       - 53:53/tcp
@@ -44,14 +40,7 @@ services:
   unbound:
     container_name: unbound
     image: "mvance/unbound:latest"
-    expose:
-      - "5335"
-    networks:
-      - dns
     ports:
       - "5335:53/tcp"
       - "5335:53/udp"
     restart: unless-stopped
-
-networks:
-  dns:
